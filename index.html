@@ -1,1 +1,761 @@
-hello
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solace — Mental Health & Wellness Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       AMBIENT BACKGROUND GLOW EFFECTS
+       Subtle animated gradient orbs for depth
+  ═══════════════════════════════════════════ -->
+  <div class="ambient-bg">
+    <div class="ambient-orb ambient-orb--1"></div>
+    <div class="ambient-orb ambient-orb--2"></div>
+    <div class="ambient-orb ambient-orb--3"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SIDEBAR NAVIGATION
+       Collapsible left panel with brand + nav
+  ═══════════════════════════════════════════ -->
+  <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+    <div class="sidebar__header">
+      <div class="sidebar__brand">
+        <!-- Brand Logo SVG - Stylized leaf/wellness icon -->
+        <svg class="sidebar__logo" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#818cf8" />
+              <stop offset="100%" stop-color="#06b6d4" />
+            </linearGradient>
+          </defs>
+          <circle cx="20" cy="20" r="18" fill="url(#logoGrad)" opacity="0.15" />
+          <path d="M20 8C20 8 12 14 12 22C12 26.4 15.6 30 20 30C24.4 30 28 26.4 28 22C28 14 20 8 20 8Z" fill="url(#logoGrad)" />
+          <path d="M20 14V26M16 20C16 20 18 22 20 22C22 22 24 20 24 20" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+        <span class="sidebar__brand-text">Solace</span>
+      </div>
+      <button class="sidebar__toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="12" x2="15" y2="12" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+      </button>
+    </div>
+
+    <nav class="sidebar__nav">
+      <span class="sidebar__section-label">Main</span>
+      <a href="#" class="sidebar__link sidebar__link--active" data-tooltip="Dashboard">
+        <svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7" rx="1.5" />
+          <rect x="14" y="3" width="7" height="7" rx="1.5" />
+          <rect x="3" y="14" width="7" height="7" rx="1.5" />
+          <rect x="14" y="14" width="7" height="7" rx="1.5" />
+        </svg>
+        <span class="sidebar__link-text">Dashboard</span>
+      </a>
+      <a href="#" class="sidebar__link" data-tooltip="Appointments">
+        <svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" />
+          <line x1="16" y1="2" x2="16" y2="6" />
+          <line x1="8" y1="2" x2="8" y2="6" />
+          <line x1="3" y1="10" x2="21" y2="10" />
+          <circle cx="12" cy="16" r="1.5" fill="currentColor" />
+        </svg>
+        <span class="sidebar__link-text">Appointments</span>
+      </a>
+      <a href="#" class="sidebar__link" data-tooltip="Patients">
+        <svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </svg>
+        <span class="sidebar__link-text">Patients</span>
+      </a>
+      <a href="#" class="sidebar__link" data-tooltip="Wellness Plans">
+        <svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+        </svg>
+        <span class="sidebar__link-text">Wellness Plans</span>
+      </a>
+      <a href="#" class="sidebar__link" data-tooltip="Therapy Sessions">
+        <svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          <path d="M8 10h.01M12 10h.01M16 10h.01" />
+        </svg>
+        <span class="sidebar__link-text">Therapy Sessions</span>
+      </a>
+
+      <span class="sidebar__section-label">Insights</span>
+      <a href="#" class="sidebar__link" data-tooltip="Analytics">
+        <svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10" />
+          <line x1="12" y1="20" x2="12" y2="4" />
+          <line x1="6" y1="20" x2="6" y2="14" />
+        </svg>
+        <span class="sidebar__link-text">Analytics</span>
+      </a>
+      <a href="#" class="sidebar__link" data-tooltip="Reports">
+        <svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1="16" y1="13" x2="8" y2="13" />
+          <line x1="16" y1="17" x2="8" y2="17" />
+          <polyline points="10 9 9 9 8 9" />
+        </svg>
+        <span class="sidebar__link-text">Reports</span>
+      </a>
+
+      <span class="sidebar__section-label">System</span>
+      <a href="#" class="sidebar__link" data-tooltip="Settings">
+        <svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3" />
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+        </svg>
+        <span class="sidebar__link-text">Settings</span>
+      </a>
+      <a href="#" class="sidebar__link" data-tooltip="Help Center">
+        <svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+          <line x1="12" y1="17" x2="12.01" y2="17" />
+        </svg>
+        <span class="sidebar__link-text">Help Center</span>
+      </a>
+    </nav>
+
+    <!-- Sidebar footer - user mini profile -->
+    <div class="sidebar__footer">
+      <div class="sidebar__user">
+        <div class="sidebar__avatar">
+          <span>DR</span>
+          <span class="sidebar__status-dot"></span>
+        </div>
+        <div class="sidebar__user-info">
+          <span class="sidebar__user-name">Dr. Reena Kapoor</span>
+          <span class="sidebar__user-role">Clinical Psychologist</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════════
+       MAIN CONTENT WRAPPER
+  ═══════════════════════════════════════════ -->
+  <div class="main-wrapper" id="mainWrapper">
+
+    <!-- ═══════════════════════════════════════
+         TOP NAVIGATION BAR
+         Search, notifications, profile
+    ═══════════════════════════════════════ -->
+    <header class="topbar" role="banner">
+      <div class="topbar__left">
+        <button class="topbar__menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+        <div class="topbar__greeting">
+          <h1 class="topbar__title">Good Morning, Dr. Kapoor</h1>
+          <p class="topbar__subtitle">Here's your wellness dashboard overview</p>
+        </div>
+      </div>
+
+      <div class="topbar__right">
+        <!-- Search Bar -->
+        <div class="topbar__search">
+          <svg class="topbar__search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <input type="text" class="topbar__search-input" placeholder="Search patients, sessions, reports..." aria-label="Search" />
+          <kbd class="topbar__search-kbd">⌘K</kbd>
+        </div>
+
+        <!-- Notification Bell -->
+        <button class="topbar__icon-btn" aria-label="Notifications" id="notifBtn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+          </svg>
+          <span class="topbar__badge">3</span>
+        </button>
+
+        <!-- Quick Add -->
+        <button class="topbar__icon-btn" aria-label="Quick actions">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+        </button>
+
+        <!-- Profile -->
+        <div class="topbar__profile">
+          <div class="topbar__profile-avatar">
+            <span>DR</span>
+          </div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </div>
+      </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════
+         MAIN DASHBOARD CONTENT
+    ═══════════════════════════════════════ -->
+    <main class="dashboard" role="main">
+
+      <!-- ── METRIC CARDS ROW ── -->
+      <section class="metrics" aria-label="Key metrics">
+        <article class="metric-card metric-card--patients">
+          <div class="metric-card__icon-wrap metric-card__icon-wrap--indigo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+          </div>
+          <div class="metric-card__content">
+            <span class="metric-card__label">Active Patients</span>
+            <div class="metric-card__value-row">
+              <span class="metric-card__value" data-count="1284">0</span>
+              <span class="metric-card__trend metric-card__trend--up">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="18 15 12 9 6 15"/></svg>
+                12.5%
+              </span>
+            </div>
+            <div class="metric-card__sparkline" data-values="30,45,35,50,49,60,70,65,80,75,90,85"></div>
+          </div>
+        </article>
+
+        <article class="metric-card metric-card--sessions">
+          <div class="metric-card__icon-wrap metric-card__icon-wrap--cyan">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+          </div>
+          <div class="metric-card__content">
+            <span class="metric-card__label">Sessions This Week</span>
+            <div class="metric-card__value-row">
+              <span class="metric-card__value" data-count="847">0</span>
+              <span class="metric-card__trend metric-card__trend--up">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="18 15 12 9 6 15"/></svg>
+                8.2%
+              </span>
+            </div>
+            <div class="metric-card__sparkline" data-values="50,40,60,55,70,65,75,80,72,85,90,88"></div>
+          </div>
+        </article>
+
+        <article class="metric-card metric-card--wellness">
+          <div class="metric-card__icon-wrap metric-card__icon-wrap--emerald">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+            </svg>
+          </div>
+          <div class="metric-card__content">
+            <span class="metric-card__label">Avg. Wellness Score</span>
+            <div class="metric-card__value-row">
+              <span class="metric-card__value" data-count="78" data-suffix="%">0</span>
+              <span class="metric-card__trend metric-card__trend--up">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="18 15 12 9 6 15"/></svg>
+                3.1%
+              </span>
+            </div>
+            <div class="metric-card__sparkline" data-values="60,62,58,65,63,68,70,72,69,74,76,78"></div>
+          </div>
+        </article>
+
+        <article class="metric-card metric-card--recovery">
+          <div class="metric-card__icon-wrap metric-card__icon-wrap--amber">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+            </svg>
+          </div>
+          <div class="metric-card__content">
+            <span class="metric-card__label">Recovery Rate</span>
+            <div class="metric-card__value-row">
+              <span class="metric-card__value" data-count="92" data-suffix="%">0</span>
+              <span class="metric-card__trend metric-card__trend--up">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="18 15 12 9 6 15"/></svg>
+                5.4%
+              </span>
+            </div>
+            <div class="metric-card__sparkline" data-values="70,74,72,78,80,82,84,86,85,88,90,92"></div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ── MAIN GRID: Charts + Side Panels ── -->
+      <div class="dashboard__grid">
+
+        <!-- ── WELLNESS TRENDS CHART ── -->
+        <section class="card card--chart" aria-label="Wellness trends chart">
+          <div class="card__header">
+            <div>
+              <h2 class="card__title">Wellness Trends</h2>
+              <p class="card__subtitle">Patient wellness scores over 12 months</p>
+            </div>
+            <div class="card__actions">
+              <div class="tab-pills">
+                <button class="tab-pill tab-pill--active">Monthly</button>
+                <button class="tab-pill">Weekly</button>
+                <button class="tab-pill">Daily</button>
+              </div>
+            </div>
+          </div>
+          <div class="chart-area" id="wellnessChart">
+            <!-- CSS chart bars rendered by JS -->
+            <div class="chart-area__y-axis">
+              <span>100</span><span>80</span><span>60</span><span>40</span><span>20</span><span>0</span>
+            </div>
+            <div class="chart-area__bars" id="chartBars">
+              <!-- JS injects bars here -->
+            </div>
+          </div>
+          <div class="chart-area__legend">
+            <span class="chart-legend-item"><span class="chart-legend-dot chart-legend-dot--primary"></span>Anxiety</span>
+            <span class="chart-legend-item"><span class="chart-legend-dot chart-legend-dot--secondary"></span>Depression</span>
+            <span class="chart-legend-item"><span class="chart-legend-dot chart-legend-dot--tertiary"></span>Overall Wellness</span>
+          </div>
+        </section>
+
+        <!-- ── MOOD DISTRIBUTION RING ── -->
+        <section class="card card--ring" aria-label="Mood distribution">
+          <div class="card__header">
+            <div>
+              <h2 class="card__title">Mood Distribution</h2>
+              <p class="card__subtitle">This month's patient moods</p>
+            </div>
+          </div>
+          <div class="ring-chart">
+            <svg class="ring-chart__svg" viewBox="0 0 200 200">
+              <circle class="ring-chart__bg" cx="100" cy="100" r="80" />
+              <!-- Segments rendered via stroke-dasharray -->
+              <circle class="ring-chart__segment ring-chart__segment--1" cx="100" cy="100" r="80" />
+              <circle class="ring-chart__segment ring-chart__segment--2" cx="100" cy="100" r="80" />
+              <circle class="ring-chart__segment ring-chart__segment--3" cx="100" cy="100" r="80" />
+              <circle class="ring-chart__segment ring-chart__segment--4" cx="100" cy="100" r="80" />
+            </svg>
+            <div class="ring-chart__center">
+              <span class="ring-chart__center-value">2.4k</span>
+              <span class="ring-chart__center-label">Check-ins</span>
+            </div>
+          </div>
+          <div class="ring-chart__legend">
+            <div class="ring-legend-item">
+              <span class="ring-legend-dot" style="--dot-color: #818cf8"></span>
+              <span>Calm</span><span class="ring-legend-val">38%</span>
+            </div>
+            <div class="ring-legend-item">
+              <span class="ring-legend-dot" style="--dot-color: #06b6d4"></span>
+              <span>Happy</span><span class="ring-legend-val">27%</span>
+            </div>
+            <div class="ring-legend-item">
+              <span class="ring-legend-dot" style="--dot-color: #f59e0b"></span>
+              <span>Anxious</span><span class="ring-legend-val">22%</span>
+            </div>
+            <div class="ring-legend-item">
+              <span class="ring-legend-dot" style="--dot-color: #f43f5e"></span>
+              <span>Stressed</span><span class="ring-legend-val">13%</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── UPCOMING APPOINTMENTS ── -->
+        <section class="card card--appointments" aria-label="Upcoming appointments">
+          <div class="card__header">
+            <div>
+              <h2 class="card__title">Upcoming Sessions</h2>
+              <p class="card__subtitle">Today's schedule</p>
+            </div>
+            <a href="#" class="card__link">View All</a>
+          </div>
+          <div class="appointments-list">
+            <div class="appointment">
+              <div class="appointment__time">
+                <span class="appointment__hour">09:00</span>
+                <span class="appointment__ampm">AM</span>
+              </div>
+              <div class="appointment__divider appointment__divider--indigo"></div>
+              <div class="appointment__details">
+                <span class="appointment__name">Arjun Mehta</span>
+                <span class="appointment__type">CBT — Anxiety Management</span>
+                <div class="appointment__tags">
+                  <span class="tag tag--indigo">In-Person</span>
+                  <span class="tag tag--ghost">60 min</span>
+                </div>
+              </div>
+            </div>
+            <div class="appointment">
+              <div class="appointment__time">
+                <span class="appointment__hour">10:30</span>
+                <span class="appointment__ampm">AM</span>
+              </div>
+              <div class="appointment__divider appointment__divider--cyan"></div>
+              <div class="appointment__details">
+                <span class="appointment__name">Priya Sharma</span>
+                <span class="appointment__type">Mindfulness Session</span>
+                <div class="appointment__tags">
+                  <span class="tag tag--cyan">Video Call</span>
+                  <span class="tag tag--ghost">45 min</span>
+                </div>
+              </div>
+            </div>
+            <div class="appointment">
+              <div class="appointment__time">
+                <span class="appointment__hour">01:00</span>
+                <span class="appointment__ampm">PM</span>
+              </div>
+              <div class="appointment__divider appointment__divider--emerald"></div>
+              <div class="appointment__details">
+                <span class="appointment__name">Vikram Joshi</span>
+                <span class="appointment__type">Group Therapy — Stress</span>
+                <div class="appointment__tags">
+                  <span class="tag tag--emerald">Group</span>
+                  <span class="tag tag--ghost">90 min</span>
+                </div>
+              </div>
+            </div>
+            <div class="appointment">
+              <div class="appointment__time">
+                <span class="appointment__hour">03:30</span>
+                <span class="appointment__ampm">PM</span>
+              </div>
+              <div class="appointment__divider appointment__divider--amber"></div>
+              <div class="appointment__details">
+                <span class="appointment__name">Neha Reddy</span>
+                <span class="appointment__type">Follow-up Assessment</span>
+                <div class="appointment__tags">
+                  <span class="tag tag--amber">Priority</span>
+                  <span class="tag tag--ghost">30 min</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── RECENT ACTIVITY FEED ── -->
+        <section class="card card--activity" aria-label="Recent activity">
+          <div class="card__header">
+            <div>
+              <h2 class="card__title">Recent Activity</h2>
+              <p class="card__subtitle">Latest updates across the platform</p>
+            </div>
+            <a href="#" class="card__link">See All</a>
+          </div>
+          <div class="activity-feed">
+            <div class="activity-item">
+              <div class="activity-item__dot activity-item__dot--indigo"></div>
+              <div class="activity-item__content">
+                <p class="activity-item__text"><strong>New patient registered</strong> — Rohan Desai completed onboarding questionnaire</p>
+                <span class="activity-item__time">2 minutes ago</span>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-item__dot activity-item__dot--emerald"></div>
+              <div class="activity-item__content">
+                <p class="activity-item__text"><strong>Wellness milestone</strong> — Ananya Iyer reached 30-day meditation streak</p>
+                <span class="activity-item__time">18 minutes ago</span>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-item__dot activity-item__dot--cyan"></div>
+              <div class="activity-item__content">
+                <p class="activity-item__text"><strong>Session completed</strong> — Dr. Kapoor finished CBT session with Arjun Mehta</p>
+                <span class="activity-item__time">1 hour ago</span>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-item__dot activity-item__dot--amber"></div>
+              <div class="activity-item__content">
+                <p class="activity-item__text"><strong>Alert</strong> — Patient Kavita Nair's anxiety score requires attention</p>
+                <span class="activity-item__time">2 hours ago</span>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-item__dot activity-item__dot--rose"></div>
+              <div class="activity-item__content">
+                <p class="activity-item__text"><strong>Report generated</strong> — Monthly wellness trends report is ready for review</p>
+                <span class="activity-item__time">3 hours ago</span>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-item__dot activity-item__dot--indigo"></div>
+              <div class="activity-item__content">
+                <p class="activity-item__text"><strong>Plan updated</strong> — Priya Sharma's treatment plan modified for Phase 2</p>
+                <span class="activity-item__time">5 hours ago</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── PATIENT WELLNESS OVERVIEW TABLE ── -->
+        <section class="card card--table" aria-label="Patient overview">
+          <div class="card__header">
+            <div>
+              <h2 class="card__title">Patient Wellness Overview</h2>
+              <p class="card__subtitle">Tracked patients and their current scores</p>
+            </div>
+            <div class="card__actions">
+              <button class="btn btn--secondary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Export
+              </button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Patient</th>
+                  <th>Condition</th>
+                  <th>Wellness Score</th>
+                  <th>Sessions</th>
+                  <th>Status</th>
+                  <th>Next Session</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="patient-cell">
+                      <div class="patient-cell__avatar" style="--avatar-bg: #818cf8">AM</div>
+                      <div>
+                        <span class="patient-cell__name">Arjun Mehta</span>
+                        <span class="patient-cell__id">#PAT-1042</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>Generalized Anxiety</td>
+                  <td>
+                    <div class="score-bar">
+                      <div class="score-bar__fill score-bar__fill--good" style="--score: 82%"></div>
+                      <span class="score-bar__label">82</span>
+                    </div>
+                  </td>
+                  <td>24</td>
+                  <td><span class="status-badge status-badge--active">On Track</span></td>
+                  <td>Today, 9:00 AM</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="patient-cell">
+                      <div class="patient-cell__avatar" style="--avatar-bg: #06b6d4">PS</div>
+                      <div>
+                        <span class="patient-cell__name">Priya Sharma</span>
+                        <span class="patient-cell__id">#PAT-1038</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>Depression</td>
+                  <td>
+                    <div class="score-bar">
+                      <div class="score-bar__fill score-bar__fill--moderate" style="--score: 65%"></div>
+                      <span class="score-bar__label">65</span>
+                    </div>
+                  </td>
+                  <td>18</td>
+                  <td><span class="status-badge status-badge--review">Needs Review</span></td>
+                  <td>Today, 10:30 AM</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="patient-cell">
+                      <div class="patient-cell__avatar" style="--avatar-bg: #10b981">VJ</div>
+                      <div>
+                        <span class="patient-cell__name">Vikram Joshi</span>
+                        <span class="patient-cell__id">#PAT-1027</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>Work Stress</td>
+                  <td>
+                    <div class="score-bar">
+                      <div class="score-bar__fill score-bar__fill--good" style="--score: 91%"></div>
+                      <span class="score-bar__label">91</span>
+                    </div>
+                  </td>
+                  <td>32</td>
+                  <td><span class="status-badge status-badge--active">On Track</span></td>
+                  <td>Today, 1:00 PM</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="patient-cell">
+                      <div class="patient-cell__avatar" style="--avatar-bg: #f59e0b">NR</div>
+                      <div>
+                        <span class="patient-cell__name">Neha Reddy</span>
+                        <span class="patient-cell__id">#PAT-1053</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>PTSD</td>
+                  <td>
+                    <div class="score-bar">
+                      <div class="score-bar__fill score-bar__fill--low" style="--score: 45%"></div>
+                      <span class="score-bar__label">45</span>
+                    </div>
+                  </td>
+                  <td>12</td>
+                  <td><span class="status-badge status-badge--critical">Critical</span></td>
+                  <td>Today, 3:30 PM</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="patient-cell">
+                      <div class="patient-cell__avatar" style="--avatar-bg: #f43f5e">KN</div>
+                      <div>
+                        <span class="patient-cell__name">Kavita Nair</span>
+                        <span class="patient-cell__id">#PAT-1061</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>Social Anxiety</td>
+                  <td>
+                    <div class="score-bar">
+                      <div class="score-bar__fill score-bar__fill--moderate" style="--score: 58%"></div>
+                      <span class="score-bar__label">58</span>
+                    </div>
+                  </td>
+                  <td>8</td>
+                  <td><span class="status-badge status-badge--review">Needs Review</span></td>
+                  <td>Apr 11, 11:00 AM</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ── QUICK WELLNESS WIDGETS ── -->
+        <section class="card card--widgets" aria-label="Quick widgets">
+          <div class="card__header">
+            <div>
+              <h2 class="card__title">Quick Insights</h2>
+              <p class="card__subtitle">At-a-glance wellness metrics</p>
+            </div>
+          </div>
+          <div class="widgets-grid">
+            <!-- Sleep Quality Widget -->
+            <div class="widget widget--float">
+              <div class="widget__header">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+                <span class="widget__label">Avg. Sleep Quality</span>
+              </div>
+              <span class="widget__value">7.2h</span>
+              <div class="widget__bar">
+                <div class="widget__bar-fill" style="--bar-width: 72%; --bar-color: #818cf8"></div>
+              </div>
+              <span class="widget__footnote">72% of patients sleeping 7+ hours</span>
+            </div>
+            <!-- Meditation Widget -->
+            <div class="widget widget--float">
+              <div class="widget__header">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 6v6l4 2" />
+                </svg>
+                <span class="widget__label">Meditation Minutes</span>
+              </div>
+              <span class="widget__value">12,480</span>
+              <div class="widget__bar">
+                <div class="widget__bar-fill" style="--bar-width: 85%; --bar-color: #06b6d4"></div>
+              </div>
+              <span class="widget__footnote">85% goal completion this month</span>
+            </div>
+            <!-- Mood Check-ins Widget -->
+            <div class="widget widget--float">
+              <div class="widget__header">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+                  <line x1="9" y1="9" x2="9.01" y2="9" />
+                  <line x1="15" y1="9" x2="15.01" y2="9" />
+                </svg>
+                <span class="widget__label">Daily Mood Check-ins</span>
+              </div>
+              <span class="widget__value">94%</span>
+              <div class="widget__bar">
+                <div class="widget__bar-fill" style="--bar-width: 94%; --bar-color: #10b981"></div>
+              </div>
+              <span class="widget__footnote">Highest engagement rate this quarter</span>
+            </div>
+            <!-- Exercise Widget -->
+            <div class="widget widget--float">
+              <div class="widget__header">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                </svg>
+                <span class="widget__label">Exercise Adherence</span>
+              </div>
+              <span class="widget__value">68%</span>
+              <div class="widget__bar">
+                <div class="widget__bar-fill" style="--bar-width: 68%; --bar-color: #f59e0b"></div>
+              </div>
+              <span class="widget__footnote">Target: 80% by end of month</span>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       NOTIFICATION PANEL (slide-in)
+  ═══════════════════════════════════════════ -->
+  <div class="notif-panel" id="notifPanel" aria-label="Notifications">
+    <div class="notif-panel__header">
+      <h3>Notifications</h3>
+      <button class="notif-panel__close" id="notifClose" aria-label="Close notifications">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="notif-panel__list">
+      <div class="notif-item notif-item--unread">
+        <div class="notif-item__icon notif-item__icon--alert">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div class="notif-item__content">
+          <p><strong>Critical Alert:</strong> Neha Reddy's anxiety score dropped below threshold</p>
+          <span class="notif-item__time">10 min ago</span>
+        </div>
+      </div>
+      <div class="notif-item notif-item--unread">
+        <div class="notif-item__icon notif-item__icon--success">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div class="notif-item__content">
+          <p><strong>Milestone:</strong> 5 patients completed their wellness programs this week</p>
+          <span class="notif-item__time">1 hour ago</span>
+        </div>
+      </div>
+      <div class="notif-item">
+        <div class="notif-item__icon notif-item__icon--info">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        </div>
+        <div class="notif-item__content">
+          <p><strong>Reminder:</strong> Monthly team review meeting at 5:00 PM today</p>
+          <span class="notif-item__time">3 hours ago</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="notif-overlay" id="notifOverlay"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
